@@ -1,6 +1,6 @@
 
 
-export type IUser ={
+export type TUser ={
     name: string; 
     email: string; 
     password: string; 
