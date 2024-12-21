@@ -1,45 +1,31 @@
-import { Request, Response } from "express";
 import { UserServices } from "./user.service";
+import catchAsync from "../../app/utils/catchAsync";
+import sendResponse from "../../app/utils/sendResponse";
+import httpStatus from "http-status";
 
 
-const createUserIntoDB = async (req: Request, res: Response) => {
-    try {
-        const payload = req.body
-        const result = await UserServices.createUserIntoDB(payload)
-        res.json({
-            success: true,
-            message: "User created successfully",
-            data: result
-        })
+const createUserIntoDB = catchAsync(async (req, res) => {
+    const payload = req.body
+    const result = await UserServices.createUserIntoDB(payload)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User creates successfully",
+        data: result
+    })
+})
 
-    } catch (err) {
-        res.json({
-            success: false,
-            message: "Validation failed",
-            error: err
-        })
+const getAllUsersFromDB = catchAsync(async (req, res) => {
+    const query = req.query
+    const result = await UserServices.getAllUsersFromDB(query)
 
-    }
-}
-
-const getAllUsersFromDB = async (req: Request, res: Response) => {
-    try {
-        const query = req.query
-        const result = await UserServices.getAllUsersFromDB(query)
-        res.json({
-            success: true,
-            message: "User faced successfully",
-            data: result
-        })
-    }
-    catch (err) {
-        res.json({
-            success: false,
-            message: "Validation failed",
-            error: err
-        })
-    }
-}
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User faced successfully",
+        data: result
+    })
+})
 
 
 export const UserControllers = {
