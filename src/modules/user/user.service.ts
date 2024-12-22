@@ -11,8 +11,13 @@ const createUserIntoDB = async (payload: TUser): Promise<TUser> => {
 }
 
 
-const getAllUsersFromDB = async (query: Record<string, unknown>) => {
-    const result = await User.find(query)
+const getAllUsersFromDB = async () => {
+    const result = await User.find()
+    return result
+}
+
+const getSingleUserFromDB = async (id: string) => {
+    const result = await User.findById(id)
     return result
 }
 
@@ -20,5 +25,6 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
 
 export const UserServices = {
     createUserIntoDB,
-    getAllUsersFromDB
+    getAllUsersFromDB,
+    getSingleUserFromDB
 }

@@ -17,8 +17,18 @@ const createUserIntoDB: RequestHandler = catchAsync(async (req, res) => {
 })
 
 const getAllUsersFromDB = catchAsync(async (req, res) => {
-    const query = req.query
-    const result = await UserServices.getAllUsersFromDB(query)
+    const result = await UserServices.getAllUsersFromDB()
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User faced successfully",
+        data: result
+    })
+})
+const getSingleUsersFromDB = catchAsync(async (req, res) => {
+    const { id } = req.params
+    const result = await UserServices.getSingleUserFromDB(id)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -31,5 +41,6 @@ const getAllUsersFromDB = catchAsync(async (req, res) => {
 
 export const UserControllers = {
     createUserIntoDB,
-    getAllUsersFromDB
+    getAllUsersFromDB,
+    getSingleUsersFromDB
 }

@@ -7,6 +7,7 @@ import auth from '../../app/middleWares/auth';
 const router = Router()
 
 router.post('/create-user',validateRequest(UserValidation.createUserValidationSchema), UserControllers.createUserIntoDB)
+router.get('/:id',UserControllers.getSingleUsersFromDB)
 router.get('/',auth('admin','user') ,UserControllers.getAllUsersFromDB)
 
 
