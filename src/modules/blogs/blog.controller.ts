@@ -7,7 +7,7 @@ const createBlog = catchAsync(async (req, res) => {
     const payload = req.body;
 
     if (req.user) {
-        payload.author = req.user.id; 
+        payload.author = req.user.id;
     }
 
     const result = await blogServices.createBlogIntoDB(payload)
@@ -20,10 +20,21 @@ const createBlog = catchAsync(async (req, res) => {
     })
 })
 
-const getAllBlogFromDB = catchAsync(async (req, res) => {
-   
-    const result = await blogServices.getAllBlogFromDB()
+const getSingleBlogFromDB = catchAsync(async (req, res) => {
+    const { id } = req.params
 
+
+    const result = await blogServices.getSingleBlogFromDB(id)
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: "Blog single successfully",
+        data: result
+    })
+})
+const getAllBlogFromDB = catchAsync(async (req, res) => {
+
+    const result = await blogServices.getAllBlogFromDB()
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -35,5 +46,6 @@ const getAllBlogFromDB = catchAsync(async (req, res) => {
 
 export const blogControllers = {
     createBlog,
-    getAllBlogFromDB
+    getAllBlogFromDB,
+    getSingleBlogFromDB
 }

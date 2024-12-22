@@ -17,7 +17,10 @@ const createUserIntoDB: RequestHandler = catchAsync(async (req, res) => {
 })
 
 const getAllUsersFromDB = catchAsync(async (req, res) => {
-    const result = await UserServices.getAllUsersFromDB()
+
+    const { role } = req.user as { role: string }
+    const result = await UserServices.getAllUsersFromDB(role === "admin" ? undefined : "user")
+
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -26,6 +29,8 @@ const getAllUsersFromDB = catchAsync(async (req, res) => {
         data: result
     })
 })
+
+
 const getSingleUsersFromDB = catchAsync(async (req, res) => {
     const { id } = req.params
     const result = await UserServices.getSingleUserFromDB(id)

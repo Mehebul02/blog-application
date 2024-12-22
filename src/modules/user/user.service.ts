@@ -11,10 +11,12 @@ const createUserIntoDB = async (payload: TUser): Promise<TUser> => {
 }
 
 
-const getAllUsersFromDB = async () => {
-    const result = await User.find()
+const getAllUsersFromDB = async (role?:string) => {
+    const filter = role ? {role} : {}
+    const result = await User.find(filter)
     return result
 }
+
 
 const getSingleUserFromDB = async (id: string) => {
     const result = await User.findById(id)
