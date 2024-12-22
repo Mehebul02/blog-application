@@ -2,10 +2,11 @@ import { TUser } from "./user.interface"
 import { User } from "./user.model"
 
 const createUserIntoDB = async (payload: TUser): Promise<TUser> => {
-    const userData: Partial<TUser> = { ...payload };
-    userData.role = 'admin'
+    // const userData: Partial<TUser> = { ...payload };
+    // userData.role = 'admin'
     // console.log("Admin role face",payload);
-    const result = await User.create(userData)
+    payload.role = 'admin'
+    const result = await User.create(payload)
     return result
 }
 
