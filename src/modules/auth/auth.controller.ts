@@ -15,6 +15,17 @@ const  registerUser = catchAsync(async (req, res) => {
 })
 
 
+const loginUser = catchAsync(async(req,res)=>{
+
+})
+
+
+
+
+
+
+
 export const AuthControllers = {
-    registerUser
+    registerUser,
+    loginUser
 }

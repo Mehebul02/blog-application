@@ -1,12 +1,18 @@
 import { TUser } from "../user/user.interface";
-import { USer } from "../user/user.model";
+import { User } from "../user/user.model";
 
 
 const registerUser = async (payload: TUser) => {
-    const result = await USer.create(payload)
+    const result = await User.create(payload)
     return result
 }
 
+
+const loginUSer = async () => {
+    const result = await User.findOne()
+}
+
 export const AuthServices = {
-    registerUser
+    registerUser,
+    loginUSer
 }
