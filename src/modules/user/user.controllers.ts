@@ -5,8 +5,9 @@ import httpStatus from "http-status";
 import { RequestHandler } from "express";
 
 const createUserIntoDB: RequestHandler = catchAsync(async (req, res) => {
-    const payload = req.body
-    const result = await UserServices.createUserIntoDB(payload)
+    const {admin:adminData} = req.body
+    console.log('role check', adminData);
+    const result = await UserServices.createUserIntoDB(adminData)
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
