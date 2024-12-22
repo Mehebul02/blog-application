@@ -19,8 +19,26 @@ const createBlogValidation = z.object({
         isPublished: z.boolean().optional().default(true),
     })
 })
+const updateBlogValidation = z.object({
+    body: z.object({
+        title: z.string({
+            required_error: "Title is required",
+            invalid_type_error: "Title must be a string",
+        }).optional(),
+        content: z.string({
+            required_error: "Content is required",
+            invalid_type_error: "Content must be a string",
+        }).optional(),
+        author: z.string({
+            required_error: "Author ID is required",
+            invalid_type_error: "Author ID must be a valid ObjectId string",
+        }).regex(/^[a-fA-F0-9]{24}$/, "Invalid ObjectId format").optional(), 
+        isPublished: z.boolean().optional().default(true).optional(),
+    })
+})
 
 
 export const BlogValidation = {
-    createBlogValidation
+    createBlogValidation,
+    updateBlogValidation
 }

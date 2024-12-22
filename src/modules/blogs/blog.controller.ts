@@ -22,8 +22,6 @@ const createBlog = catchAsync(async (req, res) => {
 
 const getSingleBlogFromDB = catchAsync(async (req, res) => {
     const { id } = req.params
-
-
     const result = await blogServices.getSingleBlogFromDB(id)
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
@@ -42,10 +40,22 @@ const getAllBlogFromDB = catchAsync(async (req, res) => {
         data: result
     })
 })
+const updateBlog = catchAsync(async (req, res) => {
+    const {id}=req.params
+
+    const result = await blogServices.updateBlogIntoDB(id,req.body)
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: "Blog updated successfully",
+        data: result
+    })
+})
 
 
 export const blogControllers = {
     createBlog,
     getAllBlogFromDB,
-    getSingleBlogFromDB
+    getSingleBlogFromDB,
+    updateBlog
 }

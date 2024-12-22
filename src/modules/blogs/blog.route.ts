@@ -9,6 +9,7 @@ const router = Router()
 router.post('/create-blog', validateRequest(BlogValidation.createBlogValidation), blogControllers.createBlog)
 
 router.get('/:id', blogControllers.getSingleBlogFromDB)
+router.patch('/:id', validateRequest(BlogValidation.updateBlogValidation), blogControllers.updateBlog)
 
 router.get('/', blogControllers.getAllBlogFromDB)
 
