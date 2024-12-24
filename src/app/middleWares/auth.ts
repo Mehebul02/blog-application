@@ -6,7 +6,6 @@ import AppError from "../errors/appError";
 import httpStatus from "http-status";
 import { User } from '../../modules/user/user.model';
 
-
 const auth = (...requiredRole: string[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const token = req.headers.authorization;

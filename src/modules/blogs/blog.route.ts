@@ -10,6 +10,7 @@ router.post('/create-blog', validateRequest(BlogValidation.createBlogValidation)
 
 router.get('/:id', blogControllers.getSingleBlogFromDB)
 router.patch('/:id', validateRequest(BlogValidation.updateBlogValidation), blogControllers.updateBlog)
+router.delete('/:id', blogControllers.deleteBlog)
 
 router.get('/', blogControllers.getAllBlogFromDB)
 
