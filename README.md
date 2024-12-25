@@ -4,23 +4,6 @@
 This project is a backend system for a blogging platform, designed to support two types of users: Admin and User. The system includes secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
 
 ## Features
-### User Roles
-- **Admin**:
-  - Created manually in the database with predefined credentials.
-  - Can delete any blog.
-  - Can block any user by updating the `isBlocked` property.
-  - Cannot update any blog.
-- **User**:
-  - Can register and log in.
-  - Can create, update, and delete their own blogs.
-  - Cannot perform admin actions.
-
-### Authentication & Authorization
-- **Authentication**:
-  - Users must log in to perform create, update, or delete operations.
-- **Authorization**:
-  - Differentiates between Admin and User roles to ensure secure access.
-
 ### Blog API
 - Public API to fetch blogs.
 - Supports search, sorting, and filtering functionalities.
@@ -32,51 +15,14 @@ This project is a backend system for a blogging platform, designed to support tw
 - **MongoDB with Mongoose**
 
 ## Models
-### User Model
-| Field        | Type             | Description                                         |
-|--------------|------------------|-----------------------------------------------------|
-| name         | string           | Full name of the user.                             |
-| email        | string           | Email address for authentication and communication.|
-| password     | string           | Securely stored password.                          |
-| role         | "admin" | "user" | Access level, default is "user".                  |
-| isBlocked    | boolean          | Indicates if the user is blocked. Default is false.|
-| createdAt    | Date             | Timestamp of user creation.                        |
-| updatedAt    | Date             | Timestamp of last update.                          |
 
-### Blog Model
-| Field        | Type             | Description                                         |
-|--------------|------------------|-----------------------------------------------------|
-| title        | string           | Title of the blog post.                            |
-| content      | string           | Content of the blog post.                          |
-| author       | ObjectId         | Reference to the User model.                       |
-| isPublished  | boolean          | Indicates if the blog is published. Default is true.|
-| createdAt    | Date             | Timestamp of blog creation.                        |
-| updatedAt    | Date             | Timestamp of last update.                          |
+
 
 ## API Endpoints
 ### 1. Authentication
 #### 1.1 Register User
 **Endpoint:** `POST /api/auth/register`
-**Request Body:**
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "securepassword"
-}
-```
-**Response:**
-- Success (201): User registered successfully.
-- Failure (400): Validation error.
 
-#### 1.2 Login User
-**Endpoint:** `POST /api/auth/login`
-**Request Body:**
-```json
-{
-  "email": "john@example.com",
-  "password": "securepassword"
-}
 ```
 **Response:**
 - Success (200): Login successful with JWT token.
