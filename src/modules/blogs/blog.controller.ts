@@ -32,7 +32,9 @@ const getSingleBlogFromDB = catchAsync(async (req, res) => {
 })
 const getAllBlogFromDB = catchAsync(async (req, res) => {
 
-    const result = await blogServices.getAllBlogFromDB()
+
+
+    const result = await blogServices.getAllBlogFromDB(req.query)
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
@@ -53,12 +55,12 @@ const updateBlog = catchAsync(async (req, res) => {
 })
 const deleteBlog = catchAsync(async (req, res) => {
     const { id } = req.params
-     const result = await blogServices.deleteBlog(id)
+    const result = await blogServices.deleteBlog(id)
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
         message: "Blog deleted successfully",
-        data:result
+        data: result
     })
 })
 

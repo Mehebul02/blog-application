@@ -2,6 +2,8 @@ import httpStatus from "http-status";
 import AppError from "../../app/errors/appError";
 import { TBlogPost } from "./blog.interface";
 import { Blog } from "./blog.model";
+import QueryBuilder from "../../app/builder/QueryBuilder";
+import { blogSearchableField } from "./blog.constant";
 
 
 const createBlogIntoDB = async (payload: TBlogPost) => {
@@ -15,15 +17,21 @@ const getSingleBlogFromDB = async (id: string) => {
     return result
 }
 
-const getAllBlogFromDB = async () => {
-    const result = await Blog.find().populate('author')
+const getAllBlogFromDB = async (query: Record<string, unknown>) => {
+    const blogQuery = new QueryBuilder(Blog.find().populate('author'), query)
+    .search(blogSearchableField)
+    .filter()
+    .sort()
+    .paginate()
+    .fields()
+    const result = await blogQuery.modelQuery
     return result
 }
 
 const updateBlogIntoDB = async (id: string, payload: Partial<TBlogPost>, userId: string) => {
     const blog = await Blog.findById(id);
     console.log('Blog found:', blog); // Debugging: Check the blog data
-    
+
     if (!blog) {
         throw new AppError(httpStatus.NOT_FOUND, 'Blog not found');
     }
@@ -42,8 +50,8 @@ const updateBlogIntoDB = async (id: string, payload: Partial<TBlogPost>, userId:
 }
 
 
-const deleteBlog = async(id:string)=>{
-    const result  = await Blog.findByIdAndDelete(id ,{new:true})
+const deleteBlog = async (id: string) => {
+    const result = await Blog.findByIdAndDelete(id, { new: true })
     return result
 }
 
