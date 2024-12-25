@@ -26,7 +26,7 @@ class QueryBuilder<T> {
         const queryObj = { ...this.query };
 
         // Exclude fields used for other operations
-        const excludeField = ["search", "sortBy", "sortOrder", "limit", "page", "fields"];
+        const excludeField = ["search", "sortBy", "sortOrder",'filter','filed'];
         excludeField.forEach((el) => delete queryObj[el]);
 
         // Add custom filtering logic if needed (e.g., filter by authorId)
@@ -47,17 +47,17 @@ class QueryBuilder<T> {
         return this;
     }
 
-    paginate() {
-        const page = Number(this.query.page) || 1;
-        const limit = Number(this.query.limit) || 10;
-        const skip = (page - 1) * limit;
+    // paginate() {
+    //     const page = Number(this.query.page) || 1;
+    //     const limit = Number(this.query.limit) || 10;
+    //     const skip = (page - 1) * limit;
 
-        this.modelQuery = this.modelQuery.skip(skip).limit(limit);
-        return this;
-    }
+    //     this.modelQuery = this.modelQuery.skip(skip).limit(limit);
+    //     return this;
+    // }
 
     fields() {
-        const fields = (this.query.fields as string)?.split(',').join(' ') || '-__v';
+        const fields = (this.query.fields as string)?.split(',').join(' ') || 'author';
         this.modelQuery = this.modelQuery.select(fields);
         return this;
     }

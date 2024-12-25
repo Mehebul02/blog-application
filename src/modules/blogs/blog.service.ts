@@ -7,6 +7,8 @@ import { blogSearchableField } from "./blog.constant";
 
 
 const createBlogIntoDB = async (payload: TBlogPost) => {
+
+
     const result = await Blog.create(payload)
     return result
 }
@@ -22,9 +24,11 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
     .search(blogSearchableField)
     .filter()
     .sort()
-    .paginate()
-    .fields()
+  .fields()
     const result = await blogQuery.modelQuery
+
+  console.log("MongoDB Query:", blogQuery.modelQuery.getQuery());
+
     return result
 }
 
