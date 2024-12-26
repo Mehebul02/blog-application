@@ -108,8 +108,8 @@ Allows an admin to delete any blog.
 ---
 
 ## Admin Credentials
-- **Email:** `admin@example.com`  
-- **Password:** `adminpassword`
+- **Email:** `mehebul.bd@gmail.com`  
+- **Password:** `123456`
 
 ---
 
