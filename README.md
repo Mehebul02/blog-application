@@ -1,134 +1,137 @@
-# Blogging Platform Backend
+Blogging Platform Backend
 
-## Overview
-This project is a backend system for a blogging platform, designed to support two types of users: Admin and User. The system includes secure authentication, role-based access control, and a public API for viewing blogs with search, sort, and filter functionalities.
+Overview
 
-## Features
-### Blog API
-- Public API to fetch blogs.
-- Supports search, sorting, and filtering functionalities.
+This project is a robust backend system for a blogging platform that enables users to create, update, and manage blogs efficiently. It includes two user roles: Admin and User, with specific permissions for each. The platform supports secure authentication, role-based access control, and advanced functionalities like searching, sorting, and filtering blogs.
 
-## Technologies Used
-- **TypeScript**
-- **Node.js**
-- **Express.js**
-- **MongoDB with Mongoose**
+Features
 
-## Models
+User Roles
 
+Admin:
 
+Can block users.
 
-## API Endpoints
-### 1. Authentication
-#### 1.1 Register User
-**Endpoint:** `POST /api/auth/register`
+Can delete any blog.
 
-```
-**Response:**
-- Success (200): Login successful with JWT token.
-- Failure (401): Invalid credentials.
+Cannot update blogs.
 
-### 2. Blog Management
-#### 2.1 Create Blog
-**Endpoint:** `POST /api/blogs`
-**Request Header:** `Authorization: Bearer <token>`
-**Request Body:**
-```json
-{
-  "title": "My First Blog",
-  "content": "This is the content of my blog."
-}
-```
-**Response:**
-- Success (201): Blog created successfully.
+User:
 
-#### 2.2 Update Blog
-**Endpoint:** `PATCH /api/blogs/:id`
-**Request Header:** `Authorization: Bearer <token>`
-**Request Body:**
-```json
-{
-  "title": "Updated Blog Title",
-  "content": "Updated content."
-}
-```
-**Response:**
-- Success (200): Blog updated successfully.
+Can register and log in.
 
-#### 2.3 Delete Blog
-**Endpoint:** `DELETE /api/blogs/:id`
-**Request Header:** `Authorization: Bearer <token>`
-**Response:**
-- Success (200): Blog deleted successfully.
+Can create, update, and delete their own blogs.
 
-#### 2.4 Get All Blogs (Public)
-**Endpoint:** `GET /api/blogs`
-**Query Parameters:**
-- `search`: Filter blogs by title or content.
-- `sortBy`: Sort blogs by fields like `createdAt` or `title`.
-- `sortOrder`: `asc` or `desc` for sorting order.
-- `filter`: Filter blogs by author ID.
+Cannot perform admin-level actions.
 
-**Response:**
-- Success (200): Blogs fetched successfully.
+Blog Management
 
-### 3. Admin Actions
-#### 3.1 Block User
-**Endpoint:** `PATCH /api/admin/users/:userId/block`
-**Request Header:** `Authorization: Bearer <admin_token>`
-**Response:**
-- Success (200): User blocked successfully.
+Create, update, and delete blogs (restricted to owners).
 
-#### 3.2 Delete Blog
-**Endpoint:** `DELETE /api/admin/blogs/:id`
-**Request Header:** `Authorization: Bearer <admin_token>`
-**Response:**
-- Success (200): Blog deleted successfully.
+Publicly accessible blog listing with:
 
-## Bonus: Error Handling
-A consistent error response format is used:
-```json
-{
-  "success": false,
-  "message": "Error message",
-  "statusCode": 400,
-  "error": { "details": "Additional error details" },
-  "stack": "Error stack trace"
-}
-```
-### Types of Errors Handled:
-- **Validation Error**: Invalid input data.
-- **Authentication Error**: Missing or invalid token.
-- **Authorization Error**: Insufficient permissions.
-- **Not Found Error**: Resource not found.
-- **Internal Server Error**: Unexpected issues.
+Search: Filter blogs by title or content.
 
-## Deployment
-- **Live Server:** [Link to deployed backend]
+Sort: Arrange blogs by fields like createdAt or title.
 
-## Admin Credentials
-- **Email:** admin@example.com
-- **Password:** adminpassword
+Filter: Filter blogs by specific criteria, such as author ID.
 
-## Setup Instructions
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file:
-   ```env
-   PORT=5000
-   MONGO_URI=<your-mongodb-uri>
-   JWT_SECRET=<your-jwt-secret>
-   ```
-4. Start the server:
-   ```bash
-   npm run dev
-   ```
+Authentication & Authorization
 
-## Project Overview Video
+Authentication: Secure user login and registration using JWT tokens.
+
+Authorization: Role-based access control ensures proper permissions for Admin and User roles.
+
+Admin Actions
+
+Block users.
+
+Delete any blog.
+
+Technologies Used
+
+TypeScript: For type-safe development.
+
+Node.js: Backend runtime.
+
+Express.js: Web framework.
+
+MongoDB with Mongoose: Database and ORM for seamless data management.
+
+API Endpoints
+
+1. Authentication
+
+Register User
+
+POST /api/auth/registerRegisters a new user.Example:https://blog-application-brown-mu.vercel.app/api/auth/register
+
+Login User
+
+POST /api/auth/loginLogs in a user and returns a JWT token.Example:https://blog-application-brown-mu.vercel.app/api/auth/login
+
+2. Blog Management
+
+Create Blog
+
+POST /api/blogsAllows a logged-in user to create a blog.Example:https://blog-application-brown-mu.vercel.app/api/blogs
+
+Update Blog
+
+PATCH /api/blogs/:idAllows a logged-in user to update their own blog.Example:https://blog-application-brown-mu.vercel.app/api/blogs/{id}
+
+Delete Blog
+
+DELETE /api/blogs/:idAllows a logged-in user to delete their own blog.Example:https://blog-application-brown-mu.vercel.app/api/blogs/{id}
+
+Get All Blogs (Public)
+
+GET /api/blogsPublic API to fetch blogs with options for search, sort, and filter.Example:https://blog-application-brown-mu.vercel.app/api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&filter=authorId
+
+3. Admin Actions
+
+Block User
+
+PATCH /api/admin/users/:userId/blockBlocks a user by updating the isBlocked property.Example:https://blog-application-brown-mu.vercel.app/api/admin/users/{userId}/block
+
+Delete Blog
+
+DELETE /api/admin/blogs/:idAllows an admin to delete any blog.Example:https://blog-application-brown-mu.vercel.app/api/admin/blogs/{id}
+
+Deployment
+
+Live Server: Click here to access the deployed backend
+
+Admin Credentials
+
+Email: admin@example.com
+
+Password: adminpassword
+
+Setup Instructions
+
+Clone the Repository
+
+git clone <repository-url>
+
+Install Dependencies
+
+npm install
+
+Configure Environment VariablesCreate a .env file in the root directory with the following variables:
+
+PORT=5000
+MONGO_URI=<your-mongodb-uri>
+JWT_SECRET=<your-jwt-secret>
+
+Start the Server
+
+npm run dev
+
+Project Overview Video
+
 [Link to project demo video]
+
+Contributing
+
+Feel free to contribute to this project by opening issues or submitting pull requests. Ensure to follow the code of conduct and contribution guidelines.
