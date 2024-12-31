@@ -64,7 +64,7 @@ Logs in a user and returns a JWT token.
 `POST /api/blogs`  
 Allows a logged-in user to create a blog.  
 **Example:**  
-`https://blog-application-brown-mu.vercel.app/api/blogs`
+`https://blog-application-brown-mu.vercel.app/api/blogs/create-blog`
 
 #### Update Blog  
 `PATCH /api/blogs/:id`  
